@@ -5,43 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio | Khaidir Arasyi</title>
     <link rel="icon" type="image/jpg" href="https://files.catbox.moe/p2t1rh.jpg">
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    
     <style>
-        /* CSS Variables & Basic Setup */
+        /* Custom CSS that can't be done with Tailwind */
         :root {
             --bg-color: #111319;
             --primary-color: #1a1d25;
-            --secondary-color: #8A2BE2; /* Biru Ungu (BlueViolet) */
-            --accent-color: #9370DB;   /* Ungu medium */
+            --secondary-color: #8A2BE2;
+            --accent-color: #9370DB;
             --text-color: #e0e0e0;
             --subtle-text: #a0a0a0;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.7;
             overflow-x: hidden;
-            cursor: none; /* Sembunyikan kursor asli */
         }
         
-        /* --- Efek Aurora & Kursor Kustom --- */
-        body::before {
+        .gradient-text {
+            background: linear-gradient(90deg, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .aurora-bg::before {
             content: '';
             position: fixed;
             top: 0;
@@ -53,12 +50,12 @@
             z-index: -1;
             animation: aurora-flow 20s infinite alternate;
         }
-
+        
         @keyframes aurora-flow {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
+        
         .custom-cursor {
             position: fixed;
             width: 25px;
@@ -72,104 +69,15 @@
             transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
             z-index: 9999;
         }
-
+        
         .custom-cursor.hovered {
             width: 50px;
             height: 50px;
             background-color: rgba(147, 112, 219, 0.2);
             border-color: transparent;
         }
-
-        /* --- Layout Utama 2 Kolom --- */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            max-width: 1200px;
-            margin: 0 auto;
-            gap: 2rem;
-            min-height: 100vh;
-        }
-
-        @media (min-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 0.8fr 1.2fr;
-                gap: 4rem;
-            }
-        }
-
-        /* --- Kolom Kiri (Statis) --- */
-        .left-pane {
-            padding: 2rem;
-        }
-
-        @media (min-width: 1024px) {
-            .left-pane {
-                position: sticky;
-                top: 0;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding: 4rem 2rem;
-            }
-        }
         
-        .profile-header {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary-color);
-            outline: 3px solid var(--accent-color);
-            margin-bottom: 2rem;
-        }
-
-        .left-pane h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #fff, var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .left-pane h2 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 400;
-            font-size: 1.2rem;
-            color: var(--subtle-text);
-            margin-bottom: 3rem;
-        }
-        
-        .left-pane nav ul {
-            list-style: none;
-        }
-        
-        .left-pane nav li {
-            margin-bottom: 1rem;
-        }
-
-        .left-pane nav a {
-            color: var(--subtle-text);
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .left-pane nav a::before {
+        .nav-link::before {
             content: '';
             width: 1rem;
             height: 2px;
@@ -177,135 +85,13 @@
             margin-right: 1rem;
             transition: all 0.3s ease;
         }
-
-        .left-pane nav a:hover {
-            color: var(--text-color);
-        }
         
-        .left-pane nav a:hover::before {
+        .nav-link:hover::before {
             width: 3rem;
             background-color: var(--text-color);
         }
-
-        .social-links {
-            margin-top: 3rem;
-        }
         
-        .social-links a {
-            color: var(--subtle-text);
-            text-decoration: none;
-            margin-right: 1.5rem;
-            transition: color 0.3s ease;
-        }
-        .social-links a svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--subtle-text);
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover svg {
-            fill: var(--accent-color);
-            transform: translateY(-3px);
-        }
-
-        /* --- Kolom Kanan (Scroll) --- */
-        .right-pane {
-            padding: 2rem 0;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .right-pane main {
-            flex-grow: 1;
-        }
-
-        @media (min-width: 1024px) {
-            .right-pane {
-                padding: 4rem 2rem;
-            }
-        }
-        
-        .content-section {
-            margin-bottom: 4rem;
-            padding-top: 2rem;
-        }
-        
-        .card {
-            padding: 2rem;
-            background-color: rgba(26, 29, 37, 0.5);
-            border: 1px solid #2a2e37;
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-        }
-
-        .section-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 1.5rem;
-        }
-
-        /* --- Skills Section --- */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-card {
-            background: var(--primary-color);
-            border: 1px solid #2a2e37;
-            border-radius: 10px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-        }
-
-        .skill-card svg {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 1rem;
-            fill: var(--accent-color);
-        }
-
-        .skill-card span {
-            font-weight: 500;
-        }
-        
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 2rem 0 0 0;
-            color: var(--subtle-text);
-            font-size: 0.9rem;
-        }
-        
-        footer .email-link {
-            color: var(--subtle-text);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: all 0.3s ease;
-        }
-        
-        footer .email-link:hover {
-            color: var(--accent-color);
-            border-bottom-color: var(--accent-color);
-        }
-        
-        footer .heart-icon {
-            display: inline-block;
-            color: var(--accent-color);
+        .heart-icon {
             animation: pulse 1.5s infinite;
         }
         
@@ -314,126 +100,407 @@
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
-
-        /* --- Animasi Scroll --- */
+        
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
+        
         .animate-on-scroll.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+        }
+        
+        .modal-content {
+            background-color: var(--primary-color);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            color: var(--text-color);
+            position: relative;
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+        
+        .close-btn {
+            color: var(--accent-color);
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            color: #fff;
+        }
+        
+        .modal-content a {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid var(--accent-color);
+            transition: color 0.3s ease;
+        }
+        
+        .modal-content a:hover {
+            color: #fff;
+            border-bottom-color: #fff;
+        }
     </style>
 </head>
-<body>
-
+<body class="aurora-bg">
     <div class="custom-cursor"></div>
 
-    <div class="main-layout">
-        <aside class="left-pane">
-            <div class="profile-header">
-                <img src="image/foto.jpg" alt="Foto Profil" class="avatar">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Left Pane (Sticky Sidebar) -->
+            <aside class="lg:w-1/3 lg:sticky lg:top-0 lg:h-screen lg:py-12 flex flex-col justify-between">
+                <div class="profile-header space-y-6">
+                    <div class="flex flex-col items-center lg:items-start">
+                        <img src="image/foto.jpg" alt="Foto Profil" class="w-36 h-36 rounded-full border-4 border-primary border-opacity-90 outline outline-3 outline-accent object-cover mb-6">
+                        <h1 class="text-4xl font-bold gradient-text font-poppins">Khaidir Arasyi</h1>
+                        <h2 class="text-xl text-subtle-text font-poppins">Web Developer</h2>
+                    </div>
+                    
+                    <nav class="mt-8">
+                        <ul class="space-y-4">
+                            <li><a href="#about" class="nav-link flex items-center text-subtle-text hover:text-white transition-colors">Tentang Saya</a></li>
+                            <li><a href="#skills" class="nav-link flex items-center text-subtle-text hover:text-white transition-colors">Keahlian</a></li>
+                            <li><a href="#projects" class="nav-link flex items-center text-subtle-text hover:text-white transition-colors">Proyek</a></li>
+                        </ul>
+                    </nav>
+                </div>
                 
-                <h1>Khaidir Arasyi</h1>
-                <h2>Web Developer</h2>
-                
-                <nav>
-                    <ul>
-                        <li><a href="#about">Tentang Saya</a></li>
-                        <li><a href="#skills">Keahlian</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/GTSMK" target="_blank" title="GitHub">
-                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                </a>
-                <a href="https://www.instagram.com/kh41py0_03" target="_blank" title="Instagram">
-                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.784.297-1.459.717-2.126 1.384S.926 3.356.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.297.783.717 1.459 1.384 2.126s1.343.83 2.126 1.126c.765.297 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.783-.297 1.459-.717 2.126-1.384s.83-1.343 1.126-2.126c.297-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.148-.558-2.913-.297-.784-.717-1.459-1.384-2.126S20.643.926 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.06 1.17-.249 1.805-.413 2.227-.217.562-.477.96-.896 1.382-.42.419-.819.679-1.381.896-.422.164-1.057.36-2.227.413-1.266.057-1.646.07-4.85.07s-3.585-.015-4.85-.07c-1.17-.06-1.805-.249-2.227-.413-.562-.217-.96-.477-1.382-.896-.419-.42-.679-.819-.896-1.381-.164-.422-.36-1.057-.413-2.227-.057-1.266-.07-1.646-.07-4.85s.015-3.585.07-4.85c.06-1.17.249-1.805.413-2.227.217-.562.477.96.896-1.382.42-.419.819-.679 1.381-.896.422-.164 1.057.36 2.227-.413C8.415 2.176 8.797 2.16 12 2.16zm0 9.04c-1.933 0-3.5 1.567-3.5 3.5s1.567 3.5 3.5 3.5 3.5-1.567 3.5-3.5-1.567-3.5-3.5-3.5zm0 5.838c-1.29 0-2.338-1.048-2.338-2.338s1.048-2.338 2.338-2.338 2.338 1.048 2.338 2.338-1.048 2.338-2.338 2.338zm7.846-10.404c-.795 0-1.44-.645-1.44-1.44s.645-1.44 1.44-1.44c.795 0 1.44.645 1.44 1.44s-.645 1.44-1.44 1.44z"/></svg>
-                </a>
-                <a href="https://wa.me/62895602242948" target="_blank" title="WhatsApp">
-                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.06 0C5.43 0 0 5.43 0 12.06c0 3.51 1.52 6.64 3.99 8.75l-1.33 4.88 5-1.31c2.02.99 4.29 1.52 6.41 1.52C18.69 24.12 24.12 18.69 24.12 12.06 24.12 5.43 18.69 0 12.06 0zm.01 2.38c5.34 0 9.68 4.34 9.68 9.68 0 5.34-4.34 9.68-9.68 9.68-2.05 0-3.96-.64-5.59-1.79l-5.7 1.49L2.3 16.2c-1.22-1.69-1.95-3.75-1.95-5.96C.35 6.72 4.69 2.38 10.03 2.38l2.04-.01zm4.8 12.08c-.28-.14-1.64-.81-1.9-1.08-.25-.14-.44-.21-.63.14-.19.35-.72.88-.88 1.06-.17.18-.33.2-.61.07-.28-.13-1.19-.44-2.26-1.39-1.08-.96-1.52-2.38-1.79-2.78-.14-.26-.01-.39.13-.52.12-.12.28-.29.41-.44.14-.14.18-.24.28-.41.09-.18.05-.32-.02-.46-.07-.14-.63-1.52-.86-2.08-.24-.57-.48-.49-.66-.5-.17-.01-.37-.01-.56-.01-.19 0-.5.07-.76.34-.26.28-.99 1.02-1.04 2.48s.53 3.11 1.15 3.65c.07.05 1.53 2.34 3.73 3.28 2.2 1.04 2.8.84 3.42.79.62-.05 1.64-.67 1.87-1.32.23-.65.23-1.21.16-1.32-.07-.12-.26-.2-.54-.34z"/></svg>
-                </a>
-            </div>
-        </aside>
+                <div class="social-links flex space-x-6 mt-8">
+                    <a href="https://github.com/khaidir13" target="_blank" title="GitHub" class="text-subtle-text hover:text-accent transition-colors">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/kh41py0_03" target="_blank" title="Instagram" class="text-subtle-text hover:text-accent transition-colors">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="https://wa.me/62895602242948" target="_blank" title="WhatsApp" class="text-subtle-text hover:text-accent transition-colors">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                    </a>
+                </div>
+            </aside>
 
-        <div class="right-pane">
-            <main>
-                <section id="about" class="content-section animate-on-scroll">
-                    <div class="card">
-                        <h2 class="section-title">Tentang Saya</h2>
-                        <p>
-                           Hi, saya adalah seorang web developer yang berdomisili di Bekasi. Saya memiliki antusiasme tinggi dalam membangun aplikasi web yang fungsional dan menarik. Saat ini saya sedang mendalami dunia pengembangan web modern melalui Petani Kode dan sumber lainnya.
+            <!-- Right Pane (Main Content) -->
+            <main class="lg:w-2/3 space-y-12 py-8">
+                <!-- About Section -->
+                <section id="about" class="animate-on-scroll">
+                    <div class="bg-primary bg-opacity-50 border border-gray-700 rounded-xl p-8 backdrop-blur-sm">
+                        <h2 class="text-2xl font-semibold font-poppins mb-6">Tentang Saya</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            Hi, saya adalah seorang web developer yang berdomisili di Bekasi. Saya memiliki antusiasme tinggi dalam membangun aplikasi web yang fungsional dan menarik. 
+                            Saat ini saya sedang mendalami dunia pengembangan web modern melalui Petani Kode dan sumber lainnya. Saya senang mempelajari teknologi baru dan menerapkannya 
+                            dalam proyek-proyek kreatif.
                         </p>
                     </div>
                 </section>
 
-                <section id="skills" class="content-section animate-on-scroll">
-                    <div class="card">
-                        <h2 class="section-title">Keahlian Saya</h2>
-                        <div class="skills-grid">
-                            <div class="skill-card">
-                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1.333 0H22.667A1.333 1.333 0 0 1 24 1.333V22.667A1.333 1.333 0 0 1 22.667 24H1.333A1.333 1.333 0 0 1 0 22.667V1.333A1.333 1.333 0 0 1 1.333 0ZM12.031 4.422 17.1 12l-5.069 7.578L6.963 12l5.068-7.578Z"/></svg>
-                                 <span>HTML</span>
+                <!-- Skills Section -->
+                <section id="skills" class="animate-on-scroll">
+                    <div class="bg-primary bg-opacity-50 border border-gray-700 rounded-xl p-8 backdrop-blur-sm">
+                        <h2 class="text-2xl font-semibold font-poppins mb-6">Keahlian Saya</h2>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                                <i class="fab fa-html5 text-5xl text-accent mb-3"></i>
+                                <span class="font-medium">HTML</span>
                             </div>
-                            <div class="skill-card">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 4.42-5.07 7.58L12 19.58l5.07-7.58L12 4.42ZM22.67 0H1.33C.6 0 0 .6 0 1.33v21.34C0 23.4.6 24 1.33 24h21.34c.73 0 1.33-.6 1.33-1.33V1.33C24 .6 23.4 0 22.67 0Z"/></svg>
-                                <span>CSS</span>
+                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                                <i class="fab fa-css3-alt text-5xl text-accent mb-3"></i>
+                                <span class="font-medium">CSS</span>
                             </div>
-                            <div class="skill-card">
-                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm21.55 18.23c.8-.52 1.13-1.28 1.13-2.2s-.38-1.68-1.14-2.2c-.76-.52-1.88-.8-3.3-.8h-1.8v5.2h2.02c1.48 0 2.55-.26 3.28-.9zm-1.83-2.88c.4 0 .7.05.9.15.2.1.3.26.3.48s-.1.38-.3.48c-.2.1-.5.15-.9.15h-.9v-2.52h.9c.4 0 .7.05.9.15.2.1.3.26.3.48s-.1.38-.3.48c-.2.1-.5.15-.9.15h-.1v.1zM8.93 12h-1.9v5.2h1.9c1.9 0 3.03-1.07 3.03-2.6s-1.13-2.6-3.03-2.6zm.1 4.02h-1v-2.84h1c.5 0 .95.34.95.9s-.45 1.94-.95 1.94zM12 24C5.37 24 0 18.63 0 12S5.37 0 12 0s12 5.37 12 12-5.37 12-12 12z"/></svg>
-                                <span>JavaScript</span>
+                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                                <i class="fab fa-js text-5xl text-accent mb-3"></i>
+                                <span class="font-medium">JavaScript</span>
                             </div>
-                            <div class="skill-card">
-                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm21.55 18.23c.8-.52 1.13-1.28 1.13-2.2s-.38-1.68-1.14-2.2c-.76-.52-1.88-.8-3.3-.8h-1.8v5.2h2.02c1.48 0 2.55-.26 3.28-.9zm-1.83-2.88c.4 0 .7.05.9.15.2.1.3.26.3.48s-.1.38-.3.48c-.2.1-.5.15-.9.15h-.9v-2.52h.9c.4 0 .7.05.9.15.2.1.3.26.3.48s-.1.38-.3.48c-.2.1-.5.15-.9.15h-.1v.1zM8.93 12h-1.9v5.2h1.9c1.9 0 3.03-1.07 3.03-2.6s-1.13-2.6-3.03-2.6zm.1 4.02h-1v-2.84h1c.5 0 .95.34.95.9s-.45 1.94-.95 1.94zM12 24C5.37 24 0 18.63 0 12S5.37 0 12 0s12 5.37 12 12-5.37 12-12 12z"/></svg>
-                                <span>Python</span>
+                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                                <i class="fab fa-python text-5xl text-accent mb-3"></i>
+                                <span class="font-medium">Python</span>
+                            </div>
+                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                                <i class="fab fa-react text-5xl text-accent mb-3"></i>
+                                <span class="font-medium">React</span>
+                            </div>
+                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                                <i class="fab fa-node-js text-5xl text-accent mb-3"></i>
+                                <span class="font-medium">Node.js</span>
                             </div>
                         </div>
                     </div>
                 </section>
+
+                <!-- Projects Section -->
+                <section id="projects" class="animate-on-scroll">
+                    <div class="bg-primary bg-opacity-50 border border-gray-700 rounded-xl p-8 backdrop-blur-sm">
+                        <h2 class="text-2xl font-semibold font-poppins mb-6">Proyek Saya</h2>
+                        <p class="text-subtle-text mb-6">
+                            Berikut beberapa proyek yang pernah saya kerjakan. Klik judul proyek untuk melihat detail lebih lanjut.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Project 1 -->
+                                                                 <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                                <h3 class="text-xl font-semibold mb-3">
+                                    <a href="https://puzzel-vert.vercel.app" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
+                                       data-title="Mini Game JavaScript" 
+                                       data-description="Game sederhana berbasis browser menggunakan HTML, CSS, dan JavaScript dengan mekanik permainan yang menarik." 
+                                       data-image="https://files.catbox.moe/hv86qa.jpg" 
+                                       data-link="https://puzzel-vert.vercel.app">Mini Game JavaScript</a>
+                                </h3>
+                                <p class="text-subtle-text text-sm leading-relaxed">
+                                    Game sederhana berbasis browser menggunakan HTML, CSS, dan JavaScript dengan mekanik permainan yang menarik.
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML5</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">CSS3</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 2 -->
+          <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                                <h3 class="text-xl font-semibold mb-3">
+                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
+                                       data-title="KhaiStore" 
+                                       data-description="Project aplikasi yang dalam masa perkembangan/pembuatan, aplikasi ini akan memudahkan kalian dalam membeli produk secara online,
+                bukan hanya itu kami juga menyediakan play lagu secara gratis." 
+                                       data-image="https://files.catbox.moe/hv4irz.jpg" 
+                                       data-link="https://khaidir.is-a-good.dev">Khai Online Store</a>
+                                </h3>
+                                <p class="text-subtle-text text-sm leading-relaxed">
+                                   Project aplikasi yang dalam masa perkembangan/pembuatan, aplikasi ini akan memudahkan kalian dalam membeli produk secara online.
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">React</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Node.js</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">MongoDB</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 3 -->
+                                             <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                                <h3 class="text-xl font-semibold mb-3">
+                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
+                                       data-title="Website Portfolio" 
+                                       data-description="Web aplikasi yang biasanya dijual belikan tersedia secara gratis namun tidak akan ada update rutin." 
+                                       data-image="https://files.catbox.moe/i61e8d.jpg" 
+                                       data-link="https://khaiserbagratis.vercel.app/">Website Aplikasi Premium Gratis</a>
+                                </h3>
+                                <p class="text-subtle-text text-sm leading-relaxed">
+                                      Web aplikasi yang biasanya dijual belikan tersedia secara gratis namun tidak akan ada update rutin.
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Firebase</span>
+                                
+                                </div>
+                
+                            </div>
+                           
+                            <!-- Project 4 -->
+                            <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                                <h3 class="text-xl font-semibold mb-3">
+                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
+                                       data-title="Website Portfolio" 
+                                       data-description="Website personal sebagai portofolio online yang responsif dan modern dengan animasi yang halus dan desain yang menarik." 
+                                       data-image="https://via.placeholder.com/600x400?text=Website+Portfolio" 
+                                       data-link="https://khaidir.is-a-good.dev">Website Portfolio</a>
+                                </h3>
+                                <p class="text-subtle-text text-sm leading-relaxed">
+                                    Website personal sebagai portofolio online yang responsif dan modern dengan berbagai fitur interaktif.
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML5</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">CSS3</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Tailwind CSS</span>
+                                </div>
+                
+                            </div>
+        <!-- projek 5 -->
+                            <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                                <h3 class="text-xl font-semibold mb-3">
+                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
+                        data-title="Website Portfolio" 
+                                       data-description="Website personal sebagai portofolio online yang responsif dan modern dengan animasi yang halus dan desain yang menarik." 
+                                       data-image="https://via.placeholder.com/600x400?text=Website+Portfolio" 
+                                       data-link="https://khaidir.is-a-good.dev">Website Portfolio</a>
+                                </h3>
+                                <p class="text-subtle-text text-sm leading-relaxed">
+                                    Website personal sebagai portofolio online yang responsif dan modern dengan berbagai fitur interaktif.
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML5</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">CSS3</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Tailwind CSS</span>
+                                </div>
+                
+                            </div>
+        <!-- projek 5 -->
+                            <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                                <h3 class="text-xl font-semibold mb-3">
+                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
+                                       data-title="Website Portfolio" 
+                                       data-description="Project web life chat curhat secara anonim yang bisa di lihat oleh seluruh dunia tanpa tahu identitas pengirim,kamu bebas mengirim rahasia mu mau absurt jorok kesel atau apapun." 
+                                       data-image="https://files.catbox.moe/ll1b8n.jpg" 
+                                       data-link="https://anonim-self.vercel.app">Website Chat Anonim</a>
+                                </h3>
+                                <p class="text-subtle-text text-sm leading-relaxed">
+                                  Project web life chat curhat secara anonim yang bisa di lihat oleh seluruh dunia tanpa tahu identitas pengirim.  </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">React</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Have fun</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Anonim</span>
+                  
+                  <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>     
+                  <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML</span>
+                  
+                  <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Firebase</span>
+                  
+                                </div>
+                
+                            </div>
+        <!-- projek 6-->
+                                         <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                                <h3 class="text-xl font-semibold mb-3">
+                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
+                                       data-title="Website Portfolio" 
+                                       data-description="Website personal komunitas kami yaitu INFOMAIN." 
+                                       data-image="https://files.catbox.moe/eze29h.jpg" 
+                                       data-link="https://infomain.vercel.app">Website Infomain</a>
+                                </h3>
+                                <p class="text-subtle-text text-sm leading-relaxed">
+                                    Website personal komunitas kami yaitu INFOMAIN
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML5</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">CSS3</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
+                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Tailwind CSS</span>
+                                </div>
+                
+                            </div>
+     
+                            </div>
+                         
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Modal Popup Proyek -->
+                <div id="project-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn">&times;</span>
+                        <h3 id="modal-title" class="text-2xl font-semibold mb-4">Judul Proyek</h3>
+                        <img id="modal-image" src="" alt="Screenshot Proyek" class="w-full rounded-lg mb-4 border border-gray-700">
+                        <p id="modal-description" class="text-gray-300 mb-4">Deskripsi lengkap proyek akan tampil di sini.</p>
+                        <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-block">
+                            Kunjungi Proyek <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                <footer class="animate-on-scroll text-center pt-8 border-t border-gray-800">
+                    <a href="mailto:khaidirarasyi67@gmail.com" class="text-subtle-text hover:text-accent border-b border-transparent hover:border-accent transition-colors">
+                        khaidirarasyi67@gmail.com
+                    </a>
+                    <p class="mt-2 text-sm text-subtle-text">
+                        Dibuat dengan <span class="heart-icon text-accent">❤️</span> oleh Khaidir Arasyi. &copy; 2025
+                    </p>
+                </footer>
             </main>
-            
-            <footer class="animate-on-scroll">
-                <a href="mailto:emailanda@contoh.com" class="email-link">khaidirarasyi67@gmail.com</a>
-                <p style="margin-top: 0.5rem;">Dibuat dengan <span class="heart-icon">&hearts;</span> Khaidir Arasyi. &copy; 2025.</p>
-            </footer>
         </div>
     </div>
 
     <script>
+        // Custom cursor effect
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Script Kursor Kustom ---
             const cursor = document.querySelector('.custom-cursor');
-            const hoverables = document.querySelectorAll('a, button, .skill-card');
-
-            window.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-
-            hoverables.forEach(el => {
-                el.addEventListener('mouseover', () => cursor.classList.add('hovered'));
-                el.addEventListener('mouseout', () => cursor.classList.remove('hovered'));
-            });
-
-            // --- Script Animasi Scroll ---
+            const hoverables = document.querySelectorAll('a, button, .skill-card, .project-card, .nav-link');
+            
+            // Show/hide cursor based on device (hide on touch devices)
+            if ('ontouchstart' in window || navigator.maxTouchPoints) {
+                cursor.style.display = 'none';
+            } else {
+                window.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+                
+                hoverables.forEach(el => {
+                    el.addEventListener('mouseover', () => cursor.classList.add('hovered'));
+                    el.addEventListener('mouseout', () => cursor.classList.remove('hovered'));
+                });
+            }
+            
+            // Scroll animation observer
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
                     }
                 });
-            }, {
-                threshold: 0.1
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+            
+            // Modal functionality
+            const modal = document.getElementById('project-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDesc = document.getElementById('modal-description');
+            const modalImage = document.getElementById('modal-image');
+            const modalLink = document.getElementById('modal-link');
+            const closeBtn = modal.querySelector('.close-btn');
+            
+            document.querySelectorAll('.open-modal').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    modalTitle.textContent = link.dataset.title;
+                    modalDesc.textContent = link.dataset.description;
+                    modalImage.src = link.dataset.image;
+                    modalImage.alt = link.dataset.title;
+                    modalLink.href = link.dataset.link;
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
             });
-
-            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-            elementsToAnimate.forEach(el => observer.observe(el));
+            
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', e => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
         });
     </script>
-
 </body>
 </html>
