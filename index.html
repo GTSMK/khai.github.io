@@ -12,14 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Custom CSS that can't be done with Tailwind */
+        /* Custom Variables */
         :root {
-            --bg-color: #111319;
+            --bg-color: #0d0e12; /* Lebih gelap, lebih premium */
             --primary-color: #1a1d25;
-            --secondary-color: #8A2BE2;
-            --accent-color: #9370DB;
-            --text-color: #e0e0e0;
-            --subtle-text: #a0a0a0;
+            --secondary-color: #8A2BE2; /* Warna Aksen Utama (Blue Violet) */
+            --accent-color: #A36BEF; /* Varian Aksen Lebih Cerah */
+            --text-color: #e6e6e6;
+            --subtle-text: #94a3b8; /* slate */
         }
         
         body {
@@ -28,16 +28,21 @@
             color: var(--text-color);
             line-height: 1.7;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
-        
+
+        /* Teks Judul Utama dengan Gradient yang Lebih Kontras */
         .gradient-text {
-            background: linear-gradient(90deg, #fff, var(--accent-color));
+            background: linear-gradient(90deg, #ffffff, var(--accent-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
+            /* Efek Bayangan Teks agar Lebih Menonjol di Dark Mode */
+            text-shadow: 0 0 10px rgba(163, 107, 239, 0.5); 
         }
         
+        /* Efek Aurora yang Lebih Halus dan Tersebar */
         .aurora-bg::before {
             content: '';
             position: fixed;
@@ -45,52 +50,63 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 15% 25%, rgba(138, 43, 226, 0.15), transparent 30%),
-                        radial-gradient(circle at 85% 75%, rgba(147, 112, 219, 0.15), transparent 30%);
+            background: radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.08), transparent 25%),
+                        radial-gradient(circle at 90% 80%, rgba(163, 107, 239, 0.08), transparent 25%);
             z-index: -1;
-            animation: aurora-flow 20s infinite alternate;
+            /* Perputaran yang lebih lambat dan halus */
+            animation: aurora-flow 30s infinite alternate linear; 
         }
         
         @keyframes aurora-flow {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        
+
+        /* Perbaikan Custom Cursor */
         .custom-cursor {
             position: fixed;
-            width: 25px;
-            height: 25px;
-            border: 2px solid var(--accent-color);
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
             border-radius: 50%;
             left: 0;
             top: 0;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s linear;
             z-index: 9999;
         }
         
         .custom-cursor.hovered {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(147, 112, 219, 0.2);
-            border-color: transparent;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(163, 107, 239, 0.4);
         }
-        
+
+        /* Nav Link Style */
+        .nav-link {
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
         .nav-link::before {
             content: '';
-            width: 1rem;
+            width: 0.5rem; /* Lebar awal lebih kecil */
             height: 2px;
-            background-color: var(--subtle-text);
+            background-color: var(--accent-color);
             margin-right: 1rem;
+            opacity: 0;
             transition: all 0.3s ease;
         }
-        
-        .nav-link:hover::before {
-            width: 3rem;
-            background-color: var(--text-color);
+        .nav-link:hover {
+             color: var(--text-color);
         }
-        
+        .nav-link:hover::before {
+            width: 2rem; /* Lebar saat hover lebih panjang */
+            opacity: 1;
+        }
+
+        /* Efek pulse di icon hati sudah bagus */
         .heart-icon {
             animation: pulse 1.5s infinite;
         }
@@ -100,336 +116,367 @@
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
-        
+
+        /* Animasi scroll sudah bagus */
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
         }
         
         .animate-on-scroll.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        /* Modal Styles */
+
+        /* Gradient Border untuk Kartu Keahlian dan Proyek/Section */
+        .gradient-border-card {
+            background: var(--primary-color);
+            position: relative;
+            z-index: 10;
+            /* Tambahkan sedikit bayangan default */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-border-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            margin: -1px; /* Ketebalan border 1px */
+            border-radius: 0.75rem; /* Sesuai rounded-xl */
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color), transparent 70%);
+            opacity: 0.3; /* Opasitas lebih rendah di awal */
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .gradient-border-card:hover::before {
+            opacity: 0.8; /* Border lebih jelas saat di hover */
+            transform: scale(1.005);
+        }
+
+        /* --- Modal Styling --- */
+
+        /* Modal Backdrop */
         .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(4px);
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.8); /* Backdrop yang lebih gelap */
+            backdrop-filter: blur(8px); /* Efek blur pada backdrop */
+            -webkit-backdrop-filter: blur(8px);
+            padding-top: 50px;
+            animation: fadeIn 0.3s ease;
         }
-        
+
+        /* Modal Content */
         .modal-content {
             background-color: var(--primary-color);
-            margin: 5% auto;
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 600px;
-            color: var(--text-color);
+            margin: 5% auto; /* 5% dari atas dan terpusat */
+            padding: 30px;
+            border: 1px solid var(--accent-color);
+            border-radius: 1rem;
+            width: 90%; 
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(163, 107, 239, 0.3); /* Bayangan yang lebih dalam */
             position: relative;
-            box-shadow: 0 0 20px var(--accent-color);
+            animation: slideIn 0.4s ease-out;
         }
-        
+
+        /* Close Button */
         .close-btn {
-            color: var(--accent-color);
+            color: var(--subtle-text);
+            float: right;
+            font-size: 36px;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.3s ease;
             position: absolute;
             top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
+            right: 25px;
         }
-        
-        .close-btn:hover {
-            color: #fff;
-        }
-        
-        .modal-content a {
-            display: inline-block;
-            margin-top: 1rem;
+
+        .close-btn:hover,
+        .close-btn:focus {
             color: var(--accent-color);
             text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px solid var(--accent-color);
-            transition: color 0.3s ease;
+            cursor: pointer;
+            transform: rotate(90deg);
         }
         
-        .modal-content a:hover {
-            color: #fff;
-            border-bottom-color: #fff;
+        /* Animasi Modal */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Image Modal */
+        #modal-image {
+            max-height: 400px; 
+            object-fit: cover;
+            width: 100%;
+            border: 2px solid var(--secondary-color);
+        }
+
+        /* Link Button Modal */
+        #modal-link {
+            border: 2px solid transparent;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        #modal-link:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Untuk responsivitas modal di layar kecil */
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 15% auto;
+                width: 95%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body class="aurora-bg">
     <div class="custom-cursor"></div>
 
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
-        <div class="flex flex-col lg:flex-row gap-8">
-            <!-- Left Pane (Sticky Sidebar) -->
-            <aside class="lg:w-1/3 lg:sticky lg:top-0 lg:h-screen lg:py-12 flex flex-col justify-between">
-                <div class="profile-header space-y-6">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <aside class="lg:w-1/3 lg:sticky lg:top-0 lg:h-screen lg:py-16 flex flex-col justify-between">
+                <div class="profile-header space-y-8">
                     <div class="flex flex-col items-center lg:items-start">
-                        <img src="https://files.catbox.moe/xnrr0a.jpeg" alt="Foto Profil" class="w-36 h-36 rounded-full border-4 border-primary border-opacity-90 outline outline-3 outline-accent object-cover mb-6">
-                        <h1 class="text-4xl font-bold gradient-text font-poppins">Khaidir Arasyi</h1>
-                        <h2 class="text-xl text-subtle-text font-poppins">Web Developer</h2>
+                        <img src="https://files.catbox.moe/xnrr0a.jpeg" alt="Foto Profil" 
+                             class="w-40 h-40 rounded-full border-4 border-primary shadow-2xl shadow-accent/40 object-cover mb-6 transition-transform hover:scale-105 duration-300">
+                        
+                        <h1 class="text-6xl font-extrabold gradient-text font-poppins mt-4 leading-tight">
+                            Khaidir Arasyi
+                        </h1>
+                        <h2 class="text-2xl text-subtle-text font-poppins mt-2 tracking-wider">
+                            Web Developer
+                        </h2>
                     </div>
                     
-                    <nav class="mt-8">
+                    <nav class="mt-10">
                         <ul class="space-y-4">
-                            <li><a href="#about" class="nav-link flex items-center text-subtle-text hover:text-white transition-colors">Tentang Saya</a></li>
-                            <li><a href="#skills" class="nav-link flex items-center text-subtle-text hover:text-white transition-colors">Keahlian</a></li>
-                            <li><a href="#projects" class="nav-link flex items-center text-subtle-text hover:text-white transition-colors">Proyek</a></li>
+                            <li><a href="#about" class="nav-link text-subtle-text text-lg hover:text-white">Tentang Saya</a></li>
+                            <li><a href="#skills" class="nav-link text-subtle-text text-lg hover:text-white">Keahlian</a></li>
+                            <li><a href="#projects" class="nav-link text-subtle-text text-lg hover:text-white">Proyek</a></li>
                         </ul>
                     </nav>
                 </div>
                 
-                <div class="social-links flex space-x-6 mt-8">
-                    <a href="https://github.com/khaidir13" target="_blank" title="GitHub" class="text-subtle-text hover:text-accent transition-colors">
-                        <i class="fab fa-github text-2xl"></i>
+                <div class="social-links flex space-x-6 mt-12 lg:mt-0">
+                    <a href="https://github.com/khaidir13" target="_blank" title="GitHub" class="text-subtle-text hover:text-accent transition-transform hover:scale-110">
+                        <i class="fab fa-github text-3xl"></i>
                     </a>
-                    <a href="https://www.instagram.com/kh41py0_03" target="_blank" title="Instagram" class="text-subtle-text hover:text-accent transition-colors">
-                        <i class="fab fa-instagram text-2xl"></i>
+                    <a href="https://www.instagram.com/kh41py0_03" target="_blank" title="Instagram" class="text-subtle-text hover:text-accent transition-transform hover:scale-110">
+                        <i class="fab fa-instagram text-3xl"></i>
                     </a>
-                    <a href="https://wa.me/62895602242948" target="_blank" title="WhatsApp" class="text-subtle-text hover:text-accent transition-colors">
-                        <i class="fab fa-whatsapp text-2xl"></i>
+                    <a href="https://wa.me/62895602242948" target="_blank" title="WhatsApp" class="text-subtle-text hover:text-accent transition-transform hover:scale-110">
+                        <i class="fab fa-whatsapp text-3xl"></i>
                     </a>
                 </div>
             </aside>
 
-            <!-- Right Pane (Main Content) -->
-            <main class="lg:w-2/3 space-y-12 py-8">
-                <!-- About Section -->
+            <main class="lg:w-2/3 space-y-20 py-16">
                 <section id="about" class="animate-on-scroll">
-                    <div class="bg-primary bg-opacity-50 border border-gray-700 rounded-xl p-8 backdrop-blur-sm">
-                        <h2 class="text-2xl font-semibold font-poppins mb-6">Tentang Saya</h2>
-                        <p class="text-gray-300 leading-relaxed">
-                            Hi, saya adalah seorang web developer yang berdomisili di Bekasi. Saya memiliki antusiasme tinggi dalam membangun aplikasi web yang fungsional dan menarik. 
-                            Saat ini saya sedang mendalami dunia pengembangan web modern melalui Petani Kode dan sumber lainnya. Saya senang mempelajari teknologi baru dan menerapkannya 
-                            dalam proyek-proyek kreatif.
+                    <div class="bg-primary/60 gradient-border-card rounded-xl p-10 backdrop-blur-md">
+                        <h2 class="text-3xl font-bold font-poppins mb-6 border-b border-gray-700 pb-3 text-accent">
+                            <i class="fas fa-user-circle mr-3"></i>Tentang Saya
+                        </h2>
+                        <p class="text-subtle-text text-lg leading-relaxed">
+                            Hi, saya adalah seorang web developer yang berdomisili di Bekasi. Saya memiliki antusiasme tinggi dalam membangun aplikasi web yang fungsional dan menarik, dengan fokus pada pengalaman pengguna <b>(user experience)</b> yang optimal. 
+                        </p>
+                        <p class="text-subtle-text text-lg leading-relaxed mt-4">
+                            Saat ini saya sedang mendalami dunia pengembangan web modern melalui Petani Kode dan sumber lainnya. Saya senang mempelajari <b>teknologi</b> baru dan menerapkannya dalam proyek-proyek kreatif, berusaha selalu menghasilkan kode yang bersih dan terstruktur.
                         </p>
                     </div>
                 </section>
 
-                <!-- Skills Section -->
                 <section id="skills" class="animate-on-scroll">
-                    <div class="bg-primary bg-opacity-50 border border-gray-700 rounded-xl p-8 backdrop-blur-sm">
-                        <h2 class="text-2xl font-semibold font-poppins mb-6">Keahlian Saya</h2>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                    <div class="bg-primary/60 gradient-border-card rounded-xl p-10 backdrop-blur-md">
+                        <h2 class="text-3xl font-bold font-poppins mb-8 border-b border-gray-700 pb-3 text-accent">
+                            <i class="fas fa-laptop-code mr-3"></i>Keahlian Saya
+                        </h2>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                            
+                            <div class="skill-card bg-primary border border-gray-700 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 hover:bg-primary/80">
                                 <i class="fab fa-html5 text-5xl text-accent mb-3"></i>
-                                <span class="font-medium">HTML</span>
+                                <span class="font-medium text-lg">HTML</span>
                             </div>
-                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                            <div class="skill-card bg-primary border border-gray-700 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 hover:bg-primary/80">
                                 <i class="fab fa-css3-alt text-5xl text-accent mb-3"></i>
-                                <span class="font-medium">CSS</span>
+                                <span class="font-medium text-lg">CSS</span>
                             </div>
-                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                            <div class="skill-card bg-primary border border-gray-700 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 hover:bg-primary/80">
                                 <i class="fab fa-js text-5xl text-accent mb-3"></i>
-                                <span class="font-medium">JavaScript</span>
+                                <span class="font-medium text-lg">JavaScript</span>
                             </div>
-                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                            <div class="skill-card bg-primary border border-gray-700 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 hover:bg-primary/80">
                                 <i class="fab fa-python text-5xl text-accent mb-3"></i>
-                                <span class="font-medium">Python</span>
+                                <span class="font-medium text-lg">Python</span>
                             </div>
-                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                            <div class="skill-card bg-primary border border-gray-700 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 hover:bg-primary/80">
                                 <i class="fab fa-react text-5xl text-accent mb-3"></i>
-                                <span class="font-medium">React</span>
+                                <span class="font-medium text-lg">React</span>
                             </div>
-                            <div class="skill-card bg-primary border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all hover:border-accent hover:-translate-y-1">
+                            <div class="skill-card bg-primary border border-gray-700 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 hover:bg-primary/80">
                                 <i class="fab fa-node-js text-5xl text-accent mb-3"></i>
-                                <span class="font-medium">Node.js</span>
+                                <span class="font-medium text-lg">Node.js</span>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Projects Section -->
                 <section id="projects" class="animate-on-scroll">
-                    <div class="bg-primary bg-opacity-50 border border-gray-700 rounded-xl p-8 backdrop-blur-sm">
-                        <h2 class="text-2xl font-semibold font-poppins mb-6">Proyek Saya</h2>
-                        <p class="text-subtle-text mb-6">
+                    <div class="bg-primary/60 gradient-border-card rounded-xl p-10 backdrop-blur-md">
+                        <h2 class="text-3xl font-bold font-poppins mb-8 border-b border-gray-700 pb-3 text-accent">
+                            <i class="fas fa-cubes mr-3"></i>Proyek Saya
+                        </h2>
+                        <p class="text-subtle-text mb-8">
                             Berikut beberapa proyek yang pernah saya kerjakan. Klik judul proyek untuk melihat detail lebih lanjut.
                         </p>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Project 1 -->
-                                                                 <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            
+                            <div class="project-card bg-primary border border-gray-700 rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-2">
                                 <h3 class="text-xl font-semibold mb-3">
-                                    <a href="https://puzzel-vert.vercel.app" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
-                                       data-title="Mini Game JavaScript" 
-                                       data-description="Game sederhana berbasis browser menggunakan HTML, CSS, dan JavaScript dengan mekanik permainan yang menarik." 
-                                       data-image="https://files.catbox.moe/hv86qa.jpg" 
-                                       data-link="https://puzzel-vert.vercel.app">Mini Game JavaScript</a>
+                                    <a href="#" class="open-modal text-accent hover:text-white transition-colors"
+                                        data-title="Mini Game JavaScript"
+                                        data-description="Game sederhana berbasis browser menggunakan HTML, CSS, dan JavaScript dengan mekanik permainan yang menarik. Ini adalah proyek awal untuk mengasah logika pemrograman."
+                                        data-image="https://files.catbox.moe/hv86qa.jpg"
+                                        data-link="https://puzzel-vert.vercel.app">
+                                        <i class="fas fa-gamepad mr-2"></i>Mini Game JavaScript
+                                    </a>
                                 </h3>
-                                <p class="text-subtle-text text-sm leading-relaxed">
-                                    Game sederhana berbasis browser menggunakan HTML, CSS, dan JavaScript dengan mekanik permainan yang menarik.
-                                </p>
+                                <p class="text-subtle-text text-sm leading-relaxed">Game sederhana berbasis browser untuk mengasah logika pemrograman.</p>
                                 <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML5</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">CSS3</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">JavaScript</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">HTML5</span>
                                 </div>
                             </div>
                             
-                            <!-- Project 2 -->
-          <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                            <div class="project-card bg-primary border border-gray-700 rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-2">
                                 <h3 class="text-xl font-semibold mb-3">
-                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
-                                       data-title="KhaiStore" 
-                                       data-description="Project aplikasi yang dalam masa perkembangan/pembuatan, aplikasi ini akan memudahkan kalian dalam membeli produk secara online,
-                bukan hanya itu kami juga menyediakan play lagu secara gratis." 
-                                       data-image="https://files.catbox.moe/hv4irz.jpg" 
-                                       data-link="https://khaidir.is-a-good.dev">Khai Online Store</a>
+                                    <a href="#" class="open-modal text-accent hover:text-white transition-colors"
+                                        data-title="Khai Online Store"
+                                        data-description="Project aplikasi toko online (e-commerce) yang sedang dalam pengembangan. Aplikasi ini bertujuan memudahkan pembelian produk online dan juga menyediakan fitur streaming lagu gratis."
+                                        data-image="https://files.catbox.moe/hv4irz.jpg"
+                                        data-link="https://khaidir.is-a-good.dev">
+                                        <i class="fas fa-store mr-2"></i>Khai Online Store
+                                    </a>
                                 </h3>
-                                <p class="text-subtle-text text-sm leading-relaxed">
-                                   Project aplikasi yang dalam masa perkembangan/pembuatan, aplikasi ini akan memudahkan kalian dalam membeli produk secara online.
-                                </p>
+                                <p class="text-subtle-text text-sm leading-relaxed">Aplikasi e-commerce dan <b>streaming</b> lagu (sedang dalam pengembangan).</p>
                                 <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">React</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Node.js</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">MongoDB</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">React</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">Node.js</span>
                                 </div>
                             </div>
                             
-                            <!-- Project 3 -->
-                                             <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                            <div class="project-card bg-primary border border-gray-700 rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-2">
                                 <h3 class="text-xl font-semibold mb-3">
-                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
-                                       data-title="Website Portfolio" 
-                                       data-description="Web aplikasi yang biasanya dijual belikan tersedia secara gratis namun tidak akan ada update rutin." 
-                                       data-image="https://files.catbox.moe/i61e8d.jpg" 
-                                       data-link="https://khaiserbagratis.vercel.app/">Website Aplikasi Premium Gratis</a>
+                                    <a href="#" class="open-modal text-accent hover:text-white transition-colors"
+                                        data-title="Website Aplikasi Premium Gratis"
+                                        data-description="Web aplikasi yang biasanya dijual belikan, namun disediakan secara gratis. Perlu diperhatikan bahwa proyek ini tidak akan ada pembaruan (update) rutin."
+                                        data-image="https://files.catbox.moe/i61e8d.jpg"
+                                        data-link="https://khaiserbagratis.vercel.app/">
+                                        <i class="fas fa-gift mr-2"></i>Website Aplikasi Premium Gratis
+                                    </a>
                                 </h3>
-                                <p class="text-subtle-text text-sm leading-relaxed">
-                                      Web aplikasi yang biasanya dijual belikan tersedia secara gratis namun tidak akan ada update rutin.
-                                </p>
+                                <p class="text-subtle-text text-sm leading-relaxed">Kumpulan aplikasi web premium yang dibagikan gratis (tidak ada update).</p>
                                 <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Firebase</span>
-                                
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">JavaScript</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">Firebase</span>
                                 </div>
-                
                             </div>
-                           
-                            <!-- Project 4 -->
-                            <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                            
+                            <div class="project-card bg-primary border border-gray-700 rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-2">
                                 <h3 class="text-xl font-semibold mb-3">
-                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
-                                       data-title="Website Portfolio" 
-                                       data-description="Website personal sebagai portofolio online yang responsif dan modern dengan animasi yang halus dan desain yang menarik." 
-                                       data-image="https://via.placeholder.com/600x400?text=Website+Portfolio" 
-                                       data-link="https://khaidir.is-a-good.dev">Website Portfolio</a>
+                                    <a href="#" class="open-modal text-accent hover:text-white transition-colors"
+                                        data-title="Portofolio Website (Ini!)"
+                                        data-description="Website personal ini dirancang untuk menampilkan portofolio online yang responsif dan modern dengan animasi yang halus dan desain dark-mode futuristik."
+                                        data-image="https://via.placeholder.com/600x400?text=Portofolio+Website+Saat+Ini"
+                                        data-link="https://khaidir.is-a-good.dev">
+                                        <i class="fas fa-user-tie mr-2"></i>Website Portfolio
+                                    </a>
                                 </h3>
-                                <p class="text-subtle-text text-sm leading-relaxed">
-                                    Website personal sebagai portofolio online yang responsif dan modern dengan berbagai fitur interaktif.
-                                </p>
+                                <p class="text-subtle-text text-sm leading-relaxed">Website personal responsif dengan desain dark-mode futuristik.</p>
                                 <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML5</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">CSS3</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Tailwind CSS</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">HTML5</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">Tailwind CSS</span>
                                 </div>
-                
                             </div>
-        <!-- projek 5 -->
-                            <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+
+                            <div class="project-card bg-primary border border-gray-700 rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-2">
                                 <h3 class="text-xl font-semibold mb-3">
-                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
-                        data-title="Website Portfolio" 
-                                       data-description="Website personal sebagai portofolio online yang responsif dan modern dengan animasi yang halus dan desain yang menarik." 
-                                       data-image="https://via.placeholder.com/600x400?text=Website+Portfolio" 
-                                       data-link="https://khaidir.is-a-good.dev">Website Portfolio</a>
+                                    <a href="#" class="open-modal text-accent hover:text-white transition-colors"
+                                        data-title="Website Chat Anonim"
+                                        data-description="Project web live chat curhat secara anonim yang bisa dilihat oleh seluruh dunia tanpa mengetahui identitas pengirim. Bebas mengirim rahasia, keluhan, atau curhatan apa pun."
+                                        data-image="https://files.catbox.moe/ll1b8n.jpg"
+                                        data-link="https://anonim-self.vercel.app">
+                                        <i class="fas fa-comment-dots mr-2"></i>Website Chat Anonim
+                                    </a>
                                 </h3>
-                                <p class="text-subtle-text text-sm leading-relaxed">
-                                    Website personal sebagai portofolio online yang responsif dan modern dengan berbagai fitur interaktif.
-                                </p>
+                                <p class="text-subtle-text text-sm leading-relaxed">Platform <b>live chat</b> untuk curhat secara anonim dan bebas.</p>
                                 <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML5</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">CSS3</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Tailwind CSS</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">React</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">Firebase</span>
                                 </div>
-                
                             </div>
-        <!-- projek 5 -->
-                            <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
+                            
+                            <div class="project-card bg-primary border border-gray-700 rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-2">
                                 <h3 class="text-xl font-semibold mb-3">
-                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
-                                       data-title="Website Portfolio" 
-                                       data-description="Project web life chat curhat secara anonim yang bisa di lihat oleh seluruh dunia tanpa tahu identitas pengirim,kamu bebas mengirim rahasia mu mau absurt jorok kesel atau apapun." 
-                                       data-image="https://files.catbox.moe/ll1b8n.jpg" 
-                                       data-link="https://anonim-self.vercel.app">Website Chat Anonim</a>
+                                    <a href="#" class="open-modal text-accent hover:text-white transition-colors"
+                                        data-title="Website Infomain"
+                                        data-description="Website personal untuk komunitas Infomain. Berfungsi sebagai pusat informasi dan portofolio kegiatan komunitas."
+                                        data-image="https://files.catbox.moe/eze29h.jpg"
+                                        data-link="https://infomain.vercel.app">
+                                        <i class="fas fa-users mr-2"></i>Website Infomain
+                                    </a>
                                 </h3>
-                                <p class="text-subtle-text text-sm leading-relaxed">
-                                  Project web life chat curhat secara anonim yang bisa di lihat oleh seluruh dunia tanpa tahu identitas pengirim.  </p>
+                                <p class="text-subtle-text text-sm leading-relaxed">Website resmi komunitas Infomain sebagai pusat informasi.</p>
                                 <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">React</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Have fun</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Anonim</span>
-                  
-                  <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>     
-                  <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML</span>
-                  
-                  <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Firebase</span>
-                  
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">HTML5</span>
+                                    <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full font-medium">Tailwind CSS</span>
                                 </div>
-                
                             </div>
-        <!-- projek 6-->
-                                         <div class="project-card bg-primary border border-gray-700 rounded-lg p-6 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1">
-                                <h3 class="text-xl font-semibold mb-3">
-                                    <a href="#" class="open-modal text-accent hover:text-white underline underline-offset-4 transition-colors" 
-                                       data-title="Website Portfolio" 
-                                       data-description="Website personal komunitas kami yaitu INFOMAIN." 
-                                       data-image="https://files.catbox.moe/eze29h.jpg" 
-                                       data-link="https://infomain.vercel.app">Website Infomain</a>
-                                </h3>
-                                <p class="text-subtle-text text-sm leading-relaxed">
-                                    Website personal komunitas kami yaitu INFOMAIN
-                                </p>
-                                <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">HTML5</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">CSS3</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">JavaScript</span>
-                                    <span class="px-2 py-1 bg-accent bg-opacity-10 text-accent text-xs rounded-full">Tailwind CSS</span>
-                                </div>
-                
-                            </div>
-     
-                            </div>
-                         
+                            
                         </div>
                     </div>
                 </section>
                 
-                <!-- Modal Popup Proyek -->
                 <div id="project-modal" class="modal">
                     <div class="modal-content">
                         <span class="close-btn">&times;</span>
-                        <h3 id="modal-title" class="text-2xl font-semibold mb-4">Judul Proyek</h3>
-                        <img id="modal-image" src="" alt="Screenshot Proyek" class="w-full rounded-lg mb-4 border border-gray-700">
-                        <p id="modal-description" class="text-gray-300 mb-4">Deskripsi lengkap proyek akan tampil di sini.</p>
-                        <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-block">
+                        <h3 id="modal-title" class="text-3xl font-bold mb-4 text-accent">Judul Proyek</h3>
+                        <img id="modal-image" src="" alt="Screenshot Proyek" class="w-full rounded-lg mb-6 border border-gray-700 shadow-xl">
+                        <p id="modal-description" class="text-gray-300 mb-6 leading-relaxed"></p>
+                        <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="py-2 px-4 bg-accent text-white font-semibold rounded-lg hover:bg-secondary transition-colors block text-center">
                             Kunjungi Proyek <i class="fas fa-external-link-alt ml-2"></i>
                         </a>
                     </div>
                 </div>
                 
-                <!-- Footer -->
-                <footer class="animate-on-scroll text-center pt-8 border-t border-gray-800">
-                    <a href="mailto:khaidirarasyi67@gmail.com" class="text-subtle-text hover:text-accent border-b border-transparent hover:border-accent transition-colors">
+                <footer class="animate-on-scroll text-center pt-12 border-t border-gray-800">
+                    <a href="mailto:khaidirarasyi67@gmail.com" class="text-subtle-text hover:text-accent border-b border-transparent hover:border-accent transition-colors text-lg">
                         khaidirarasyi67@gmail.com
                     </a>
-                    <p class="mt-2 text-sm text-subtle-text">
-                        Dibuat dengan <span class="heart-icon text-accent">❤️</span> oleh Khaidir Arasyi. &copy; 2025
+                    <p class="mt-4 text-md text-subtle-text">
+                        Dibuat dengan <span class="heart-icon text-accent">❤️</span> oleh Khaidir Arasyi. &copy; <span id="current-year">2025</span>
                     </p>
                 </footer>
             </main>
@@ -442,6 +489,9 @@
             const cursor = document.querySelector('.custom-cursor');
             const hoverables = document.querySelectorAll('a, button, .skill-card, .project-card, .nav-link');
             
+            // Set current year for footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
             // Show/hide cursor based on device (hide on touch devices)
             if ('ontouchstart' in window || navigator.maxTouchPoints) {
                 cursor.style.display = 'none';
@@ -462,9 +512,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
+                        // Hanya berhenti mengamati jika elemen sudah terlihat
+                        observer.unobserve(entry.target); 
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
             
             document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
             
@@ -485,19 +537,19 @@
                     modalImage.alt = link.dataset.title;
                     modalLink.href = link.dataset.link;
                     modal.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
+                    document.body.style.overflow = 'hidden'; // Mencegah scrolling saat modal terbuka
                 });
             });
             
             closeBtn.addEventListener('click', () => {
                 modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = 'auto'; // Mengaktifkan scrolling kembali
             });
             
             window.addEventListener('click', e => {
                 if (e.target === modal) {
                     modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
+                    document.body.style.overflow = 'auto'; // Mengaktifkan scrolling kembali
                 }
             });
         });
